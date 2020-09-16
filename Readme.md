@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Виктория Крассова](https://up.htmlacademy.ru/javascript/21/user/1496359).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Смирнов](https://up.htmlacademy.ru/javascript/21/user/387709).
 
 ---
 
