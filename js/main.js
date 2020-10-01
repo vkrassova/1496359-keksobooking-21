@@ -1,4 +1,5 @@
 "use strict";
+(function () {
 
 const ADS_AMOUNT = 8;
 
@@ -100,3 +101,4 @@ const renderPinsOnMap = (ads) => {
 };
 
 renderPinsOnMap(adsList);
+})();
