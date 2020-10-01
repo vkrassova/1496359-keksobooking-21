@@ -67,7 +67,6 @@ const fillAds = (quantity) => {
   const adsList = [];
 
   for (let i = 0; i < quantity; i++) {
-    // const index = quantity < 10 ? `0` + (i + 1) : i + 1;
     adsList.push(createTemplate(i));
   }
 
