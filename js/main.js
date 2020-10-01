@@ -18,38 +18,41 @@ const map = document.querySelector(`.map`);
 const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 const mapPins = map.querySelector(`.map__pins`);
 
-const getRandomFromNumbers = (min, max) => {
+const getRandomNumbers = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-const getRandomFromArray = (array) => {
+const getRandomArray = (array) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
+const setLeadingZero = (index) => {
+  return index < 10 ? `0${index}` : index;
+};
+
 const createTemplate = (i) => {
-  // const title = getRandomFromArray(TITLES);
-  const type = getRandomFromArray(TYPES);
-  const checkin = getRandomFromArray(CHECK_IN_OUT);
-  const checkout = getRandomFromArray(CHECK_IN_OUT);
-  const features = getRandomFromArray(FEATURES);
-  // const description = getRandomFromArray(DESCRIPTIONS);
-  const photos = getRandomFromArray(PHOTOS);
+  const type = getRandomArray(TYPES);
+  const checkin = getRandomArray(CHECK_IN_OUT);
+  const checkout = getRandomArray(CHECK_IN_OUT);
+  const features = getRandomArray(FEATURES);
+  const photos = getRandomArray(PHOTOS);
   const location = {
-    x: getRandomFromNumbers(40, 1160),
-    y: getRandomFromNumbers(130, 630)
+    x: getRandomNumbers(40, 1160),
+    y: getRandomNumbers(130, 630)
   };
+  const index = setLeadingZero(i + 1);
 
   return {
     author: {
-      avatar: `img/avatars/user` + i + `.png`
+      avatar: `img/avatars/user` + index + `.png`
     },
     offer: {
       title: `Заголовок описания`,
       address: location.x + `, ` + location.y,
-      price: getRandomFromNumbers(0, 1000001),
+      price: getRandomNumbers(0, 1000001),
       type,
-      rooms: getRandomFromNumbers(1, 99),
-      guests: getRandomFromNumbers(1, 30),
+      rooms: getRandomNumbers(1, 99),
+      guests: getRandomNumbers(1, 30),
       checkin,
       checkout,
       features,
@@ -64,8 +67,8 @@ const fillAds = (quantity) => {
   const adsList = [];
 
   for (let i = 0; i < quantity; i++) {
-    const index = quantity < 10 ? `0` + (i + 1) : i + 1;
-    adsList.push(createTemplate(index));
+    // const index = quantity < 10 ? `0` + (i + 1) : i + 1;
+    adsList.push(createTemplate(i));
   }
 
   return adsList;
