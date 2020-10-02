@@ -74,7 +74,7 @@
   map.classList.remove(`map--faded`);
 
   const fragment = document.createDocumentFragment();
-
+  // создаем ноду с пином и переносим в нее данные из объекта
   const setPin = (i, ads) => {
     const pinElement = pinTemplate.cloneNode(true);
     const pinWidth = pinElement.style.width;
@@ -87,7 +87,7 @@
 
     return pinElement;
   };
-
+  // cоздаем фрагмент из 8 нод с пинами
   const renderPinsOnMap = (ads) => {
     for (let i = 0; i < ads.length; i++) {
       fragment.appendChild(setPin(i, ads));
