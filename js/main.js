@@ -4,7 +4,7 @@
   const ADS_AMOUNT = 8;
   const TYPES = [`palace`, `flat`, `house`, `bungalo`];
   const CHECK_IN_OUT = [`12:00`, `13:00`, `14:00`];
-  const FEATURES = [`wifi`, `dishwasher`, `parking`, `parking`, `elevator`, `conditioner`, `description`];
+  const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`, `description`];
   const PHOTOS = [
     `http://o0.github.io/assets/images/tokyo/hotel1.jpg`,
     `http://o0.github.io/assets/images/tokyo/hotel2.jpg`,
@@ -14,6 +14,8 @@
   const map = document.querySelector(`.map`);
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const mapPins = map.querySelector(`.map__pins`);
+  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+  const mapFilterContainer = map.querySelector(`.map__filters-container`);
 
   const getRandomNumbers = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -21,6 +23,12 @@
 
   const getRandomArray = (array) => {
     return array[Math.floor(Math.random() * array.length)];
+  };
+
+  const getMixArray = (array) => {
+    array.sort(() => 0.5 - Math.random());
+  
+    return array.slice(getRandomNumbers(0, array.length));
   };
 
   const setLeadingZero = (index) => {
