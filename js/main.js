@@ -38,14 +38,14 @@
   const getRandomNumbers = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
-  // получам случайный элемент массива 
+  // получам случайный элемент массива
   const getRandomArray = (array) => {
     return array[Math.floor(Math.random() * array.length)];
   };
   // получаем элементы массива в случ.порядке и длинной от 0 до array.length
   const getMixArray = (array) => {
     array.sort(() => 0.5 - Math.random());
-  
+
     return array.slice(getRandomNumbers(0, array.length));
   };
 
@@ -100,7 +100,30 @@
 
     return adsList;
   };
+  // фотографии жилья
+  const renderPhotos = (photos, container) => {
+    const photoTemplate = container.querySelector(`.popup__photo`);
+    let newPhoto;
+    container.innerHTML = ``;
 
+    photos.forEach((item) => {
+      newPhoto = photoTemplate.cloneNode(false);
+      newPhoto.src = item;
+      fragment.appendChild(newPhoto);
+    });
+
+    container.appendChild(fragment);
+  };
+  // список из FEATURES
+  const renderFeatures = (features, container) => {
+    container.innerHTML = ``;
+
+    features.forEach((item) => {
+      const li = document.createElement(`li`);
+      li.classList.add(`popup__feature`, featuresClasses[item]);
+      container.appendChild(li);
+    });
+  };
   const adsList = fillAds(ADS_AMOUNT);
   map.classList.remove(`map--faded`);
 
@@ -122,14 +145,6 @@
   const setCard = (adsElement) => {
     // копируем коллекцию с окном объявления
     const cardElement = cardTemplate.cloneNode(true);
-    // див с фотографией жилья 
-    const photosSection = cardElement.querySelector(`.popup__photos`);
-    // фотография жилья
-    const photo = photosSection.querySelector(`.popup__photo`);
-    // список к попапом FEATURES
-    const featuresSection = cardElement.querySelector(`.popup__features`);
-    // получаем li из списка 
-    const featuresChildren = featuresSection.children;
     const {title, address, price, type, rooms, guests, checkin, checkout, description, features, photos} = adsElement.offer;
     const roomsForm = declension([`комната`, `комнаты`, `комнат`], rooms);
     const guestsForm = declension([`гостя`, `гостей`, `гостей`], guests);
@@ -142,33 +157,13 @@
     cardElement.querySelector(`.popup__text--time`).textContent = `Заезд после ${checkin} выезд до ${checkout}`;
     cardElement.querySelector(`.popup__description`).textContent = description;
 
-    for (let i = 0; i < features.length; i++) {
-      const currentElement = cardElement.querySelector(`.${featuresClasses[features[i]]}`);
-      currentElement.textContent = features[i];
-    }
-
-    for (let i = featuresChildren.length - 1; i >= 0; i--) {
-      if (featuresChildren[i].textContent.trim().length === 0) {
-      }
-    }
-
-    for (let i = 0; i < photos.length; i++) {
-      if (i === 0) {
-        photo.src = photos[i];
-      } else {
-        const newPhoto = photo.cloneNode(false);
-        newPhoto.src = photos[i];
-        fragment.appendChild(newPhoto);
-      }
-    }
-
-    photosSection.appendChild(fragment);
+    renderFeatures(features, cardElement.querySelector(`.popup__features`));
+    renderPhotos(photos, cardElement.querySelector(`.popup__photos`));
     cardElement.querySelector(`.popup__avatar`).src = adsElement.author.avatar;
-  
+
     return cardElement;
   };
 
-  
   // cоздаем фрагмент из 8 нод с пинами
   const renderPinsOnMap = (ads) => {
     for (let i = 0; i < ads.length; i++) {
