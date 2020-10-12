@@ -2,6 +2,8 @@
 (function () {
 
   const ADS_AMOUNT = 8;
+  const ENTER_KEY = 13;
+  const MOUSE_BUTTON_LEFT = [0,4];
   const TYPES = [`palace`, `flat`, `house`, `bungalo`];
   const CHECK_IN_OUT = [`12:00`, `13:00`, `14:00`];
   const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
@@ -30,19 +32,25 @@
   const map = document.querySelector(`.map`);
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const mapPins = map.querySelector(`.map__pins`);
+  // контрол указания адреса объявления
+  const mapPinMain = map.querySelector(`.map__pin--main`);
   // модальное окно с информацией об объявлении
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+    // форма фильтрации
+    const mapFilters = document.querySelector(`.map__filters`);
   // фильтрация объявлений: тип жилья, стоимость, число комнат, число жильцов
   const mapFilterContainer = map.querySelector(`.map__filters-container`);
+  // форма объявления
+  const adForm = document.querySelector(`.ad-form`);
 
   const getRandomNumbers = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
-  // получам случайный элемент массива
+
   const getRandomArray = (array) => {
     return array[Math.floor(Math.random() * array.length)];
   };
-  // получаем элементы массива в случ.порядке и длинной от 0 до array.length
+
   const getMixArray = (array) => {
     array.sort(() => 0.5 - Math.random());
 
@@ -126,7 +134,6 @@
   };
 
   const adsList = fillAds(ADS_AMOUNT);
-  map.classList.remove(`map--faded`);
 
   const fragment = document.createDocumentFragment();
   // создаем ноду с пином и переносим в нее данные из объекта
@@ -176,6 +183,45 @@
 
   const renderCardOnMap = (adsElement) => {
     map.insertBefore(setCard(adsElement), mapFilterContainer);
+  };
+
+  const setDisabled = (forms, inActive) => {
+    if (inActive) {
+      forms.removeAttribute(`disabled`);
+    } else {
+      forms.setAttribute(`disabled`, true);
+     }
+  };
+  
+  const setState = (inActive) => {
+    if (inActive) {
+      adForm.classList.add(`ad-form--disabled`);
+      map.classList.add(`map--faded`);
+    } else {
+      adForm.classList.remove(`ad-form--disabled`);
+      map.classList.remove(`map--faded`);
+    }
+  
+    for (let i = 0; i < mapFilters.children.length; i++) {
+       setDisabled (mapFilters.children[i], inActive);
+    }
+
+    for (let i = 0; i < adForm.children.length; i++) {
+      setDisabled (adForm.children.length[i], inActive)
+    }
+  };
+
+  // проверка кнопки мыши
+  const onMousePressed = (evt) => {
+    if (MOUSE_BUTTON_LEFT.includes(evt.button)) {
+      activatedPage(evt);
+    }
+  };
+  
+  const onEnterPress = (evt) => {
+    if (evt.key === ENTER_KEY) {
+      activatedPage(evt);
+    }
   };
 
   renderPinsOnMap(adsList);
