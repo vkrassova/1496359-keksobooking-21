@@ -185,16 +185,16 @@
     map.insertBefore(setCard(adsElement), mapFilterContainer);
   };
 
-  const setDisabled = (forms, inActive) => {
-    if (inActive) {
+  const setDisabled = (forms, isInactive) => {
+    if (isInactive) {
       forms.removeAttribute(`disabled`);
     } else {
       forms.setAttribute(`disabled`, true);
      }
   };
   
-  const setState = (inActive) => {
-    if (inActive) {
+  const setState = (isInactive) => {
+    if (isInactive) {
       adForm.classList.add(`ad-form--disabled`);
       map.classList.add(`map--faded`);
     } else {
@@ -203,11 +203,11 @@
     }
   
     for (let i = 0; i < mapFilters.children.length; i++) {
-       setDisabled (mapFilters.children[i], inActive);
+       setDisabled (mapFilters.children[i], isInactive);
     }
 
     for (let i = 0; i < adForm.children.length; i++) {
-      setDisabled (adForm.children.length[i], inActive)
+      setDisabled (adForm.children.length[i], isInactive)
     }
   };
 
@@ -219,7 +219,7 @@
   };
   
   const onEnterPress = (evt) => {
-    if (evt.key === ENTER_KEY) {
+    if (evt.KeyCode === ENTER_KEY) {
       activatedPage(evt);
     }
   };
