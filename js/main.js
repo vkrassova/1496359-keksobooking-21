@@ -3,7 +3,7 @@
 
   const ADS_AMOUNT = 8;
   const ENTER_KEY = 13;
-  // const MOUSE_BUTTON_LEFT = [0,4];
+  const MOUSE_BUTTON_LEFT = [0, 4];
   const TYPES = [`palace`, `flat`, `house`, `bungalo`];
   const CHECK_IN_OUT = [`12:00`, `13:00`, `14:00`];
   const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
@@ -43,6 +43,16 @@
   // форма объявления
   const adForm = document.querySelector(`.ad-form`);
   const addressInput = adForm.querySelector(`#address`);
+  const initialMainPinSettings = {
+    location: {
+      x: mapPinMain.offsetLeft,
+      y: mapPinMain.offsetTop,
+    },
+    size: {
+      width: mapPinMain.offsetWidth,
+      height: mapPinMain.offsetHeight
+    }
+  };
 
   const getRandomNumbers = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -133,18 +143,30 @@
       container.appendChild(li);
     });
   };
+  const setInputValue = (element, value) => {
+    element.value = value;
+  };
 
   const adsList = fillAds(ADS_AMOUNT);
 
   const fragment = document.createDocumentFragment();
+  const getPinLocation = (location, pinSizes) => {
+    return {
+      x: Math.round(location.x + pinSizes.width / 2),
+      y: Math.round(location.y + pinSizes.height / 2)
+    };
+  };
   // создаем ноду с пином и переносим в нее данные из объекта
   const setPin = (i, ads) => {
     const pinElement = pinTemplate.cloneNode(true);
-    const pinWidth = pinElement.style.width;
-    const pinHeight = pinElement.style.height;
+    const pinSizes = {
+      width: pinElement.style.width,
+      height: pinElement.style.height
+    };
 
-    pinElement.style.left = `${ads[i].location.x + pinWidth / 2}px`;
-    pinElement.style.top = `${ads[i].location.y + pinHeight}px`;
+    const pinLocation = getPinLocation(ads[i].location, pinSizes);
+    pinElement.style.left = `${pinLocation.x}px`;
+    pinElement.style.top = `${pinLocation.y}px`;
     pinElement.querySelector(`img`).src = ads[i].author.avatar;
     pinElement.querySelector(`img`).alt = ads[i].author.title;
 
@@ -186,15 +208,15 @@
     map.insertBefore(setCard(adsElement), mapFilterContainer);
   };
 
-  const setDisabled = (forms, isInactive) => {
-    if (isInactive) {
-      forms.removeAttribute(`disabled`);
-    } else {
-      forms.setAttribute(`disabled`, true);
-    }
+  const setDisabled = (forms, isInactive = true) => {
+    forms.forEach((form) => {
+      Array.from(form.children).forEach((item) => {
+        item.disabled = isInactive;
+      });
+    });
   };
 
-  const setState = (isInactive) => {
+  const setState = (isInactive = true) => {
     if (isInactive) {
       adForm.classList.add(`ad-form--disabled`);
       map.classList.add(`map--faded`);
@@ -203,23 +225,18 @@
       map.classList.remove(`map--faded`);
     }
 
-    for (let i = 0; i < mapFilters.children.length; i++) {
-      setDisabled(mapFilters.children[i], isInactive);
-    }
+    setDisabled([mapFilters, adForm], isInactive);
+  };
 
-    for (let i = 0; i < adForm.children.length; i++) {
-      setDisabled(adForm.children[i], isInactive);
+  const onMousePressed = (evt) => {
+    if (MOUSE_BUTTON_LEFT.includes(evt.button)) {
+      activatedPage(evt);
     }
   };
 
-  // const onMousePressed = (evt) => {
-  //   if (MOUSE_BUTTON_LEFT.includes(evt.button)) {
-  //     activatedPage(evt);
-  //   }
-  // };
-  
   const onEnterPress = (evt) => {
     if (evt.KeyCode === ENTER_KEY) {
+      evt.preventDefault();
       activatedPage(evt);
     }
   };
@@ -236,24 +253,62 @@
     }
   };
 
+  const setCapacityDisabled = () => {
+    const roomValue = parseInt(adForm.rooms.value, 10);
+
+    Array.from(adForm.capacity.options).forEach((item) => {
+      const optionCapacity = parseInt(item.value, 10);
+
+      if (roomValue === 100) {
+        item.disabled = !!optionCapacity;
+      } else {
+        item.disabled = roomValue < optionCapacity || !optionCapacity;
+      }
+    });
+  };
+
   const setCapacityValue = () => {
     adForm.capacity.value = adForm.rooms.value < 100 ? adForm.rooms.value : 0;
   };
 
-  const activatedPage = (evt) => {
-    const mainPinLocation = getPinLocation(initialMainPinSettings.location, initialMainPinSettings.size);
-    isInactive = false;
-    setInputValue(addressInput, `${mainPinLocation.x}, ${mainPinLocation.y}`);
-    evt.preventDefault();
-    setState(isInactive);
+  const roomsChange = () => {
     setCapacityValue();
     setCapacityDisabled();
-    adForm.title.focus();
-    adForm.capacity.style.outline = ``;
-    mapPinMain.removeEventListener(`mousedown`, activatedPage);
-    mapPinMain.removeEventListener(`keypress`, activatedPage);
   };
 
-  renderPinsOnMap(adsList);
-  renderCardOnMap(adsList[0]);
+  const capacityChange = () => {
+    setValidationCapacityHandler();
+  };
+
+  const onAdFormClick = () => {
+    setValidationCapacityHandler();
+  };
+
+  const activatedPage = () => {
+    const mainPinLocation = getPinLocation(initialMainPinSettings.location, initialMainPinSettings.size);
+    setInputValue(addressInput, `${mainPinLocation.x}, ${mainPinLocation.y}`);
+    setState(false);
+    setCapacityValue();
+    setCapacityDisabled();
+    renderPinsOnMap(adsList);
+    renderCardOnMap(adsList[0]);
+    adForm.title.focus();
+    adForm.capacity.style.outline = ``;
+
+    mapPinMain.removeEventListener(`mousedown`, onMousePressed);
+    mapPinMain.removeEventListener(`keypress`, onEnterPress);
+  };
+
+  mapPinMain.addEventListener(`mousedown`, onMousePressed);
+
+  mapPinMain.addEventListener(`keydown`, onEnterPress);
+
+  adForm.capacity.addEventListener(`change`, capacityChange);
+
+  adForm.rooms.addEventListener(`change`, roomsChange);
+
+  adForm.querySelector(`.ad-form__submit`).addEventListener(`click`, onAdFormClick);
+
+  setState();
+
 })();
