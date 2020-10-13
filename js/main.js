@@ -3,7 +3,7 @@
 
   const ADS_AMOUNT = 8;
   const ENTER_KEY = 13;
-  const MOUSE_BUTTON_LEFT = [0,4];
+  // const MOUSE_BUTTON_LEFT = [0,4];
   const TYPES = [`palace`, `flat`, `house`, `bungalo`];
   const CHECK_IN_OUT = [`12:00`, `13:00`, `14:00`];
   const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
@@ -36,12 +36,13 @@
   const mapPinMain = map.querySelector(`.map__pin--main`);
   // модальное окно с информацией об объявлении
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
-    // форма фильтрации
-    const mapFilters = document.querySelector(`.map__filters`);
+  // форма фильтрации
+  const mapFilters = document.querySelector(`.map__filters`);
   // фильтрация объявлений: тип жилья, стоимость, число комнат, число жильцов
   const mapFilterContainer = map.querySelector(`.map__filters-container`);
   // форма объявления
   const adForm = document.querySelector(`.ad-form`);
+  const addressInput = adForm.querySelector(`#address`);
 
   const getRandomNumbers = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -190,9 +191,9 @@
       forms.removeAttribute(`disabled`);
     } else {
       forms.setAttribute(`disabled`, true);
-     }
+    }
   };
-  
+
   const setState = (isInactive) => {
     if (isInactive) {
       adForm.classList.add(`ad-form--disabled`);
@@ -201,27 +202,56 @@
       adForm.classList.remove(`ad-form--disabled`);
       map.classList.remove(`map--faded`);
     }
-  
+
     for (let i = 0; i < mapFilters.children.length; i++) {
-       setDisabled (mapFilters.children[i], isInactive);
+      setDisabled(mapFilters.children[i], isInactive);
     }
 
     for (let i = 0; i < adForm.children.length; i++) {
-      setDisabled (adForm.children.length[i], isInactive)
+      setDisabled(adForm.children[i], isInactive);
     }
   };
 
-  // проверка кнопки мыши
-  const onMousePressed = (evt) => {
-    if (MOUSE_BUTTON_LEFT.includes(evt.button)) {
-      activatedPage(evt);
-    }
-  };
+  // const onMousePressed = (evt) => {
+  //   if (MOUSE_BUTTON_LEFT.includes(evt.button)) {
+  //     activatedPage(evt);
+  //   }
+  // };
   
   const onEnterPress = (evt) => {
     if (evt.KeyCode === ENTER_KEY) {
       activatedPage(evt);
     }
+  };
+
+  const setValidationCapacityHandler = () => {
+    if (parseInt(adForm.rooms.value, 10) === 100 && parseInt(adForm.capacity.value, 10) > 0) {
+      adForm.capacity.setCustomValidity(`Не для гостей`);
+    } else if (parseInt(adForm.rooms.value, 10) < parseInt(adForm.capacity.value, 10)) {
+      adForm.capacity.setCustomValidity(`На всех гостей комнат не хватит`);
+    } else if (parseInt(adForm.rooms.value, 10) !== 100 && !parseInt(adForm.capacity.value, 10)) {
+      adForm.capacity.setCustomValidity(`Для гостей`);
+    } else {
+      adForm.capacity.setCustomValidity(``);
+    }
+  };
+
+  const setCapacityValue = () => {
+    adForm.capacity.value = adForm.rooms.value < 100 ? adForm.rooms.value : 0;
+  };
+
+  const activatedPage = (evt) => {
+    const mainPinLocation = getPinLocation(initialMainPinSettings.location, initialMainPinSettings.size);
+    isInactive = false;
+    setInputValue(addressInput, `${mainPinLocation.x}, ${mainPinLocation.y}`);
+    evt.preventDefault();
+    setState(isInactive);
+    setCapacityValue();
+    setCapacityDisabled();
+    adForm.title.focus();
+    adForm.capacity.style.outline = ``;
+    mapPinMain.removeEventListener(`mousedown`, activatedPage);
+    mapPinMain.removeEventListener(`keypress`, activatedPage);
   };
 
   renderPinsOnMap(adsList);
