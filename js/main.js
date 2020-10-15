@@ -235,7 +235,7 @@
   };
 
   const onEnterPress = (evt) => {
-    if (evt.KeyCode === ENTER_KEY) {
+    if (evt.keyCode === ENTER_KEY) {
       evt.preventDefault();
       activatedPage(evt);
     }
