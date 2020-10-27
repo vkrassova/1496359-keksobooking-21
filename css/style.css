@@ -1247,7 +1247,7 @@ fieldset {
   display: none;
 }
 
-.errors-message {
+.error-message {
   color: red;
   font-size: 26px;
   z-index: 10;
