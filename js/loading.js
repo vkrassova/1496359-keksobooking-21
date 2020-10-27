@@ -1,59 +1,59 @@
 "use strict";
 
 (() => {
-    const DATA_URL = `https://21.javascript.pages.academy/keksobooking/data`;
-    const POST_URL = `https://21.javascript.pages.academy/keksobooking`;
-    const StatusCode = {
-      OK: 200
-    };
+  const GET_URL = `https://21.javascript.pages.academy/keksobooking/data`;
+  const POST_URL = `https://21.javascript.pages.academy/keksobooking`;
+  const StatusCode = {
+    OK: 200
+  };
 
-    const TIMEOUT_IN_MS = 10000;
+  const TIMEOUT_IN_MS = 10000;
 
-    const sendXhrRequest = (method, onLoad, onError, data = null) => {
-      const xhr = new XMLHttpRequest();
-      xhr.responseType = `json`;
+  const sendXhrRequest = (method, onLoad, onError, data = null) => {
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = `json`;
 
-      xhr.addEventListener(`load`, () => {
-        if (xhr.status === StatusCode.OK) {
-          if (method === POST_URL) {
-            onLoad(xhr.response);
-          } else {
-            onLoad();
-          }
+    xhr.addEventListener(`load`, () => {
+      if (xhr.status === StatusCode.OK) {
+        if (method === POST_URL) {
+          onLoad(xhr.response);
         } else {
-          onError(xhr.status);
+          onLoad();
         }
-      });
-
-      xhr.addEventListener(`error`, () => {
-        onError(`Ошибка соединения`);
-      });
-      xhr.addEventListener(`timeout`, () => {
-        onError(`Запрос не успел выполниться за ${xhr.timeout} мс`);
-      });
-
-      xhr.timeout = TIMEOUT_IN_MS;
-
-      if (method === POST_URL) {
-        xhr.open(method, url.GET);
-      } else if (method === DATA_URL) {
-        xhr.open(method, DATA_URL);
+      } else {
+        onError(xhr.status);
       }
+    });
 
-      xhr.send(data);
-    };
+    xhr.addEventListener(`error`, () => {
+      onError(`Ошибка соединения`);
+    });
+    xhr.addEventListener(`timeout`, () => {
+      onError(`Запрос не успел выполниться за ${xhr.timeout} мс`);
+    });
 
-    const load = (onLoad, onError) => {
-      sendXhrRequest(POST_URL, onLoad, onError);
-    };
+    xhr.timeout = TIMEOUT_IN_MS;
 
-    const save = (onLoad, onError, data) => {
-      sendXhrRequest(DATA_URL, onLoad, onError, data);
-    };
+    if (method === POST_URL) {
+      xhr.open(method, GET_URL);
+    } else if (method === GET_URL) {
+      xhr.open(method, GET_URL);
+    }
 
-    window.loading = {
-      load,
-      save,
+    xhr.send(data);
+  };
+
+  const load = (onLoad, onError) => {
+    sendXhrRequest(POST_URL, onLoad, onError);
+  };
+
+  const save = (onLoad, onError, data) => {
+    sendXhrRequest(GET_URL, onLoad, onError, data);
+  };
+
+  window.loading = {
+    load,
+    save,
   };
 
 })();
