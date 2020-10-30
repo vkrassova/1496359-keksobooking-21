@@ -56,11 +56,34 @@
     renderPhotos(photos, cardElement.querySelector(`.popup__photos`));
     cardElement.querySelector(`.popup__avatar`).src = adsElement.author.avatar;
 
+    cardElement.querySelector(`.popup__close`).addEventListener(`click`, onPopupClickPress);
+    document.addEventListener(`keydown`, onPopupEscPress);
+
     return cardElement;
   };
 
+  const removeMapCard = () => {
+
+    const mapCard = map.querySelector(`.map__card`);
+    if (map.contains(mapCard)) {
+      mapCard.remove();
+    }
+  }
+
   const renderCardOnMap = (adsElement) => {
-    map.insertBefore(window.card.setCard(adsElement), mapFilterContainer);
+    removeMapCard();
+    map.insertBefore(setCard(adsElement), mapFilterContainer);
+  };
+
+  const onPopupClickPress = () => {
+    removeMapCard();
+    document.removeEventListener(`keydown`, onPopupEscPress);
+  }
+
+  const onPopupEscPress = (evt) => {
+    if (evt.keyCode === window.constant.ESC_KEY) {
+      removeMapCard();
+    }
   };
 
   window.card = {

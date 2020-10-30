@@ -33,7 +33,7 @@
     window.form.setCapacityValue();
     window.form.setCapacityDisabled();
     window.loadData.load(window.pin.renderPinsOnMap, window.errors.renderErrorsNode);
-    window.card.renderCardOnMap(window.data.adsList[0]);
+    // window.card.renderCardOnMap(window.data.adsList[0]);
     adForm.title.focus();
     adForm.capacity.style.outline = ``;
 
