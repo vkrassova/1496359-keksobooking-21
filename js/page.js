@@ -37,8 +37,8 @@
     adForm.title.focus();
     adForm.capacity.style.outline = ``;
 
-    mapPinMain.removeEventListener(`mousedown`, window.mainPin.onMainPinMouseDown);
-    mapPinMain.removeEventListener(`keydown`, window.mainPin.onMainPinEnterDown);
+    mapPinMain.removeEventListener(`mousedown`, window.mainPin.onMousePressed);
+    mapPinMain.removeEventListener(`keydown`, window.mainPin.onEnterPress);
   };
 
   window.page = {
