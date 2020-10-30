@@ -68,7 +68,7 @@
     if (map.contains(mapCard)) {
       mapCard.remove();
     }
-  }
+  };
 
   const renderCardOnMap = (adsElement) => {
     removeMapCard();
@@ -78,7 +78,7 @@
   const onPopupClickPress = () => {
     removeMapCard();
     document.removeEventListener(`keydown`, onPopupEscPress);
-  }
+  };
 
   const onPopupEscPress = (evt) => {
     if (evt.keyCode === window.constant.ESC_KEY) {
