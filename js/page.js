@@ -32,13 +32,13 @@
     setState(false);
     window.form.setCapacityValue();
     window.form.setCapacityDisabled();
-    window.pin.renderPinsOnMap(window.data.adsList);
-    window.card.renderCardOnMap(window.data.adsList[0]);
+    window.loadData.load(window.pin.renderPinsOnMap, window.errors.renderErrorsNode);
+    // window.card.renderCardOnMap(window.data.adsList[0]);
     adForm.title.focus();
     adForm.capacity.style.outline = ``;
 
-    mapPinMain.removeEventListener(`mousedown`, window.mainPin.onMainPinMouseDown);
-    mapPinMain.removeEventListener(`keydown`, window.mainPin.onMainPinEnterDown);
+    mapPinMain.removeEventListener(`mousedown`, window.mainPin.onMousePressed);
+    mapPinMain.removeEventListener(`keydown`, window.mainPin.onEnterPress);
   };
 
   window.page = {
