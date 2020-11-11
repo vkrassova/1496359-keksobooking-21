@@ -39,7 +39,7 @@
     });
   };
 
-  const setCard = (adsElement) => {
+  const set = (adsElement) => {
     const cardElement = cardTemplate.cloneNode(true);
     const {title, address, price, type, rooms, guests, checkin, checkout, description, features, photos} = adsElement.offer;
     const roomsWord = window.util.declension([`комната`, `комнаты`, `комнат`], rooms);
@@ -62,7 +62,7 @@
     return cardElement;
   };
 
-  const removeMapCard = () => {
+  const remove = () => {
 
     const mapCard = window.constant.map.querySelector(`.map__card`);
     if (window.constant.map.contains(mapCard)) {
@@ -71,23 +71,23 @@
   };
 
   const renderCardOnMap = (adsElement) => {
-    removeMapCard();
-    window.constant.map.insertBefore(setCard(adsElement), mapFilterContainer);
+    remove();
+    window.constant.map.insertBefore(set(adsElement), mapFilterContainer);
   };
 
   const onPopupClickPress = () => {
-    removeMapCard();
+    remove();
     document.removeEventListener(`keydown`, onPopupEscPress);
   };
 
   const onPopupEscPress = (evt) => {
     if (evt.keyCode === window.constant.ESC_KEY) {
-      removeMapCard();
+      remove();
     }
   };
 
   window.card = {
-    setCard,
+    set,
     renderCardOnMap
   };
 })();

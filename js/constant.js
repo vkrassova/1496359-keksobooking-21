@@ -8,22 +8,16 @@
   const MAP_BOTTOM = 630;
   const MAP_LEFT = 0;
   const MAP_RIGHT = 1200;
-  const POINTER_HEIGHT = 18;
+  const POINTER_HEIGHT = 22;
 
   const map = document.querySelector(`.map`);
   const mapPinMain = map.querySelector(`.map__pin--main`);
   const adForm = document.querySelector(`.ad-form`);
 
-  // const initialMainPinSettings = {
-  //   location: {
-  //     x: mapPinMain.offsetLeft,
-  //     y: mapPinMain.offsetTop,
-  //   },
-  //   size: {
-  //     width: mapPinMain.offsetWidth,
-  //     height: mapPinMain.offsetHeight,
-  //   }
-  // };
+  const initialMainPinSettings = {
+      X: mapPinMain.style.left,
+      Y: mapPinMain.style.top,
+  };
 
   const mainPinSize = {
     width: mapPinMain.offsetWidth,
@@ -48,6 +42,7 @@
     map,
     mapPinMain,
     mainPinSize,
-    mainPinLocation
+    mainPinLocation,
+    initialMainPinSettings
   };
 })();
