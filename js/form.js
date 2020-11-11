@@ -74,8 +74,8 @@
 
     const onClick = (evt) => {
       evt.preventDefault();
-        document.querySelector(`.success`).remove();
-        document.removeEventListener(`click`, onClick);
+      document.querySelector(`.success`).remove();
+      document.removeEventListener(`click`, onClick);
     };
 
     document.addEventListener(`keydown`, onEscKey);
