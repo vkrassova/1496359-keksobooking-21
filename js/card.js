@@ -10,10 +10,10 @@
     conditioner: `popup__feature--conditioner`,
   };
 
-  const map = document.querySelector(`.map`);
+  // const map = document.querySelector(`.map`);
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
   const fragment = document.createDocumentFragment();
-  const mapFilterContainer = map.querySelector(`.map__filters-container`);
+  const mapFilterContainer = window.constant.map.querySelector(`.map__filters-container`);
 
   const renderPhotos = (photos, container) => {
     const photoTemplate = container.querySelector(`.popup__photo`);
@@ -64,15 +64,15 @@
 
   const removeMapCard = () => {
 
-    const mapCard = map.querySelector(`.map__card`);
-    if (map.contains(mapCard)) {
+    const mapCard = window.constant.map.querySelector(`.map__card`);
+    if (window.constant.map.contains(mapCard)) {
       mapCard.remove();
     }
   };
 
   const renderCardOnMap = (adsElement) => {
     removeMapCard();
-    map.insertBefore(setCard(adsElement), mapFilterContainer);
+    window.constant.map.insertBefore(setCard(adsElement), mapFilterContainer);
   };
 
   const onPopupClickPress = () => {
