@@ -36,8 +36,8 @@
     // const mainPinLocation = window.pin.getPinLocation(window.constant.mainPinLocation, window.constant.mainPinSize);
     // window.constant.mapPinMain.removeEventListener(`click`, window.mainPin.onMousePressed);
     // window.constant.mapPinMain.removeEventListener(`keydown`, window.mainPin.onEnterPress);
-    window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
     setState(false);
+    window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
     window.form.setCapacityValue();
     window.form.setCapacityDisabled();
     window.loadData.load(window.pin.renderPins, window.errors.renderErrorsNode);

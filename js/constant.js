@@ -15,8 +15,8 @@
   const adForm = document.querySelector(`.ad-form`);
 
   const initialMainPinSettings = {
-      X: mapPinMain.style.left,
-      Y: mapPinMain.style.top,
+    X: mapPinMain.style.left,
+    Y: mapPinMain.style.top,
   };
 
   const mainPinSize = {

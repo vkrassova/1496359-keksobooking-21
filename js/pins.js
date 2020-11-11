@@ -41,6 +41,7 @@
     pinElement.querySelector(`img`).alt = ads.author.title;
     pinElement.addEventListener(`click`, onPinClickPress);
     pinElement.addEventListener(`keydown`, onPinEnterPress);
+    pins.push(pinElement);
 
     return pinElement;
   };
@@ -53,7 +54,7 @@
     mapPins.appendChild(fragment);
   };
 
-  const deletPins = (ads) => {
+  const deletePins = () => {
     if (pins.length > 0) {
       pins.forEach((item) => {
         item.remove();
@@ -65,6 +66,6 @@
     setPin,
     getPinLocation,
     renderPins,
-    deletPins
+    deletePins
   };
 })();

@@ -64,6 +64,5 @@
     declension,
     setInputValue,
     selectFormValidation,
-    selectFieldValidation
   };
 })();

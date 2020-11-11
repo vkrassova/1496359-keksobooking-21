@@ -74,10 +74,8 @@
 
     const onClick = (evt) => {
       evt.preventDefault();
-      if (evt.keyCode === window.constant.ESC_KEY) {
         document.querySelector(`.success`).remove();
         document.removeEventListener(`click`, onClick);
-      }
     };
 
     document.addEventListener(`keydown`, onEscKey);
@@ -98,8 +96,8 @@
 
     const onClick = (evt) => {
       evt.preventDefault();
-        document.querySelector(`.error`).remove();
-        document.removeEventListener(`click`, onClick);
+      document.querySelector(`.error`).remove();
+      document.removeEventListener(`click`, onClick);
     };
 
     document.addEventListener(`keydown`, onEscKey);
@@ -114,7 +112,7 @@
 
   const errorEvent = () => {
     setErrorMessage();
-  }
+  };
 
   const onAdFormClick = () => {
     setValidationCapacity();
