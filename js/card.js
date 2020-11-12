@@ -70,7 +70,7 @@
     }
   };
 
-  const renderCardOnMap = (adsElement) => {
+  const renderCard = (adsElement) => {
     removeCard();
     window.constant.map.insertBefore(setCard(adsElement), mapFilterContainer);
   };
@@ -88,6 +88,7 @@
 
   window.card = {
     setCard,
-    renderCardOnMap
+    renderCard,
+    removeCard,
   };
 })();

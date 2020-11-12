@@ -2,8 +2,6 @@
 
 (() => {
 
-  const TIMEOUT_IN_MS = 10000;
-
   const url = {
     POST: `https://21.javascript.pages.academy/keksobooking`,
     GET: `https://21.javascript.pages.academy/keksobooking/data`,
@@ -36,7 +34,7 @@
       onError(`Запрос не успел выполниться за ${xhr.timeout} мс`);
     });
 
-    xhr.timeout = TIMEOUT_IN_MS;
+    xhr.timeout = window.constant.TIMEOUT_IN_MS;
 
     if (method === `GET`) {
       xhr.open(method, url.GET);

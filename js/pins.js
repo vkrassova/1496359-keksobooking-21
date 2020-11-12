@@ -25,12 +25,12 @@
     const pinLocation = getPinLocation(ads.location, pinSizes);
 
     const onPinClickPress = () => {
-      window.card.renderCardOnMap(ads);
+      window.card.renderCard(ads);
     };
 
     const onPinEnterPress = (evt) => {
       if (evt.keyCode === window.constant.ENTER_KEY) {
-        window.card.renderCardOnMap(ads);
+        window.card.renderCard(ads);
         evt.preventDefault();
       }
     };

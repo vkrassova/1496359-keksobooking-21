@@ -9,6 +9,12 @@
   const MAP_LEFT = 0;
   const MAP_RIGHT = 1200;
   const POINTER_HEIGHT = 22;
+  const MAX_PINS = 5;
+  const DEBOUNCE = 1500;
+
+  const TIMEOUT_IN_MS = 10000;
+
+  const housingPrice = {bungalow: 0, flat: 1000, house: 5000, palace: 10000};
 
   const map = document.querySelector(`.map`);
   const mapPinMain = map.querySelector(`.map__pin--main`);
@@ -38,6 +44,11 @@
     MAP_LEFT,
     MAP_RIGHT,
     POINTER_HEIGHT,
+    TIMEOUT_IN_MS,
+    MAX_PINS,
+    MAX_PINS,
+    DEBOUNCE,
+    housingPrice,
     adForm,
     map,
     mapPinMain,
