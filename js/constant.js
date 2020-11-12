@@ -15,6 +15,7 @@
   const TIMEOUT_IN_MS = 10000;
 
   const housingPrice = {bungalow: 0, flat: 1000, house: 5000, palace: 10000};
+  const housingPriceLimit = {LOW: 10000, HIGH: 50000};
 
   const map = document.querySelector(`.map`);
   const mapPinMain = map.querySelector(`.map__pin--main`);
@@ -49,6 +50,7 @@
     MAX_PINS,
     DEBOUNCE,
     housingPrice,
+    housingPriceLimit,
     adForm,
     map,
     mapPinMain,
