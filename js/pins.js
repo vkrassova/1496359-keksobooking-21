@@ -5,6 +5,9 @@
   const mapPins = window.constant.map.querySelector(`.map__pins`);
   const fragment = document.createDocumentFragment();
 
+  const pins = [];
+
+
   const getPinLocation = (location, pinSizes) => {
     return {
       x: location.x - Math.floor(pinSizes.width / 2),
@@ -38,11 +41,12 @@
     pinElement.querySelector(`img`).alt = ads.author.title;
     pinElement.addEventListener(`click`, onPinClickPress);
     pinElement.addEventListener(`keydown`, onPinEnterPress);
+    pins.push(pinElement);
 
     return pinElement;
   };
 
-  const renderPinsOnMap = (ads) => {
+  const renderPins = (ads) => {
     ads.forEach((item) => {
       fragment.appendChild(setPin(item));
     });
@@ -50,9 +54,18 @@
     mapPins.appendChild(fragment);
   };
 
+  const deletePins = () => {
+    if (pins.length > 0) {
+      pins.forEach((item) => {
+        item.remove();
+      });
+    }
+  };
+
   window.pin = {
     setPin,
     getPinLocation,
-    renderPinsOnMap
+    renderPins,
+    deletePins
   };
 })();

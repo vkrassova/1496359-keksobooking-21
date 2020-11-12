@@ -62,7 +62,7 @@
     return cardElement;
   };
 
-  const removeMapCard = () => {
+  const removeCard = () => {
 
     const mapCard = window.constant.map.querySelector(`.map__card`);
     if (window.constant.map.contains(mapCard)) {
@@ -71,18 +71,18 @@
   };
 
   const renderCardOnMap = (adsElement) => {
-    removeMapCard();
+    removeCard();
     window.constant.map.insertBefore(setCard(adsElement), mapFilterContainer);
   };
 
   const onPopupClickPress = () => {
-    removeMapCard();
+    removeCard();
     document.removeEventListener(`keydown`, onPopupEscPress);
   };
 
   const onPopupEscPress = (evt) => {
     if (evt.keyCode === window.constant.ESC_KEY) {
-      removeMapCard();
+      removeCard();
     }
   };
 
