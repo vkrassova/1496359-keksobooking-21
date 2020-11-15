@@ -10,7 +10,7 @@
   const MAP_RIGHT = 1200;
   const POINTER_HEIGHT = 22;
   const MAX_PINS = 5;
-  const DEBOUNCE = 1500;
+  const DEBOUNCE = 500;
 
   const TIMEOUT_IN_MS = 10000;
 
@@ -20,6 +20,8 @@
   const map = document.querySelector(`.map`);
   const mapPinMain = map.querySelector(`.map__pin--main`);
   const adForm = document.querySelector(`.ad-form`);
+  const mapFilter = document.querySelector(`.map__filters`);
+  let pinsData = [];
 
   const initialMainPinSettings = {
     X: mapPinMain.style.left,
@@ -47,7 +49,6 @@
     POINTER_HEIGHT,
     TIMEOUT_IN_MS,
     MAX_PINS,
-    MAX_PINS,
     DEBOUNCE,
     housingPrice,
     housingPriceLimit,
@@ -56,6 +57,8 @@
     mapPinMain,
     mainPinSize,
     mainPinLocation,
-    initialMainPinSettings
+    initialMainPinSettings,
+    pinsData,
+    mapFilter,
   };
 })();

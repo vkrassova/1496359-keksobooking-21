@@ -1,7 +1,6 @@
 "use strict";
 
 (() => {
-  // const adForm = document.querySelector(`.ad-form`);
   const successMessage = document.querySelector(`#success`).content.querySelector(`.success`);
   const errorMessage = document.querySelector(`#error`).content.querySelector(`.error`);
 
@@ -162,6 +161,7 @@
     window.constant.adForm.timeout.removeEventListener(`change`, selectTimeout);
   };
 
+  window.constant.mapFilter.addEventListener(`change`, window.filters.onMapChangeFilter);
 
   window.form = {
     setCapacityValue,

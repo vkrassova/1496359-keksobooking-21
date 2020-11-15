@@ -5,8 +5,14 @@
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  const getRandomArray = (array) => {
-    return array[Math.floor(Math.random() * array.length)];
+  let lastTimeout;
+
+  // const getRandomArray = (array) => {
+  //   return array[Math.floor(Math.random() * array.length)];
+  // };
+
+  const getRandomArray = (array, n) => {
+    return array.sort(() => Math.random() - Math.random()).slice(0, n);
   };
 
   const getMixArray = (array) => {
@@ -56,6 +62,13 @@
     });
   };
 
+  const debounce = (cb) => {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(cb, window.constant.DEBOUNCE);
+  };
+
   window.util = {
     getRandomNumbers,
     getRandomArray,
@@ -64,5 +77,6 @@
     declension,
     setInputValue,
     selectFormValidation,
+    debounce,
   };
 })();

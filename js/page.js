@@ -1,14 +1,11 @@
 "use strict";
 
 (() => {
-  const mapFilters = document.querySelector(`.map__filters`);
   const mainPinLocation = window.pin.getPinLocation(window.constant.mainPinLocation, window.constant.mainPinSize);
 
-  const setDisabled = (forms, isInactive = true) => {
-    forms.forEach((form) => {
-      Array.from(form.children).forEach((item) => {
-        item.disabled = isInactive;
-      });
+  const setDisabled = (form, isInactive = true) => {
+    Array.from(form.children).forEach((item) => {
+      item.disabled = isInactive;
     });
   };
 
@@ -29,18 +26,15 @@
       document.querySelector(`.ad-form__reset`).addEventListener(`keydown`, window.form.onResetKeydown);
     }
 
-    setDisabled([mapFilters, window.constant.adForm], isInactive);
+    window.page.setDisabled(window.constant.mapFilter, isInactive);
   };
 
   const activatedPage = () => {
-    // const mainPinLocation = window.pin.getPinLocation(window.constant.mainPinLocation, window.constant.mainPinSize);
-    // window.constant.mapPinMain.removeEventListener(`click`, window.mainPin.onMousePressed);
-    // window.constant.mapPinMain.removeEventListener(`keydown`, window.mainPin.onEnterPress);
     setState(false);
     window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
     window.form.setCapacityValue();
     window.form.setCapacityDisabled();
-    window.loadData.load(window.pin.renderPins, window.errors.renderErrorsNode);
+    window.loadData.load(window.pin.successHandler, window.errors.renderErrorsNode);
     // window.card.renderCardOnMap(window.data.adsList[0]);
     window.constant.adForm.title.focus();
     window.constant.adForm.capacity.style.outline = ``;
@@ -52,7 +46,7 @@
   const deactivatedPage = () => {
     setState(true);
     window.constant.adForm.reset();
-    window.pin.deletePins();
+    window.map.deletePins();
     window.constant.mapPinMain.style.left = window.constant.initialMainPinSettings.X;
     window.constant.mapPinMain.style.top = window.constant.initialMainPinSettings.Y;
     window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
@@ -64,6 +58,7 @@
   window.page = {
     activatedPage,
     deactivatedPage,
-    setState
+    setState,
+    setDisabled,
   };
 })();
