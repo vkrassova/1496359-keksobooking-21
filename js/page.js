@@ -35,7 +35,6 @@
     window.form.setCapacityValue();
     window.form.setCapacityDisabled();
     window.loadData.load(window.pin.successHandler, window.errors.renderErrorsNode);
-    // window.card.renderCardOnMap(window.data.adsList[0]);
     window.constant.adForm.title.focus();
     window.constant.adForm.capacity.style.outline = ``;
     window.form.addFieldsListeners();
