@@ -1,6 +1,8 @@
 "use strict";
 
 (() => {
+  const mainPinLocation = window.pin.getPinLocation(window.constant.mainPinLocation, window.constant.mainPinSize);
+  
   const setDisabled = (form, isInactive = true) => {
     Array.from(form.children).forEach((item) => {
       item.disabled = isInactive;
@@ -22,7 +24,6 @@
       window.constant.adForm.addEventListener(`submit`, window.form.onSubmitForm);
       document.querySelector(`.ad-form__reset`).addEventListener(`click`, window.form.onResetClick);
       document.querySelector(`.ad-form__reset`).addEventListener(`keydown`, window.form.onResetKeydown);
-      isInactive = window.constant.pinsData.length ? true : isInactive;
     }
 
     window.page.setDisabled(window.constant.mapFilter, isInactive);
@@ -33,6 +34,7 @@
     window.form.setCapacityValue();
     window.form.setCapacityDisabled();
     window.loadData.load(window.pin.successHandler, window.errors.renderErrorsNode);
+    window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
     window.constant.adForm.title.focus();
     window.constant.adForm.capacity.style.outline = ``;
     window.form.addFieldsListeners();
@@ -44,6 +46,7 @@
     setState(true);
     window.constant.adForm.reset();
     window.map.deletePins();
+    window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
     window.constant.mapPinMain.style.left = window.constant.initialMainPinSettings.X;
     window.constant.mapPinMain.style.top = window.constant.initialMainPinSettings.Y;
     window.form.removeFieldsListeners();
