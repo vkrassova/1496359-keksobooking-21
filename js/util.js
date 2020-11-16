@@ -1,28 +1,11 @@
 "use strict";
 
 (() => {
-  const getRandomNumbers = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
 
   let lastTimeout;
 
-  // const getRandomArray = (array) => {
-  //   return array[Math.floor(Math.random() * array.length)];
-  // };
-
   const getRandomArray = (array, n) => {
     return array.sort(() => Math.random() - Math.random()).slice(0, n);
-  };
-
-  const getMixArray = (array) => {
-    array.sort(() => 0.5 - Math.random());
-
-    return array.slice(getRandomNumbers(0, array.length));
-  };
-
-  const setLeadingZero = (index) => {
-    return index < 10 ? `0${index}` : index;
   };
 
   const declension = (forms, number) => {
@@ -70,10 +53,7 @@
   };
 
   window.util = {
-    getRandomNumbers,
     getRandomArray,
-    getMixArray,
-    setLeadingZero,
     declension,
     setInputValue,
     selectFormValidation,
