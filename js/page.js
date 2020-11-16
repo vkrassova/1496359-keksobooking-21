@@ -2,7 +2,6 @@
 
 (() => {
   const mainPinLocation = window.pin.getPinLocation(window.constant.mainPinLocation, window.constant.mainPinSize);
-  
   const setDisabled = (form, isInactive = true) => {
     Array.from(form.children).forEach((item) => {
       item.disabled = isInactive;
