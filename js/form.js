@@ -1,11 +1,8 @@
 "use strict";
 
 (() => {
-  // const adForm = document.querySelector(`.ad-form`);
   const successMessage = document.querySelector(`#success`).content.querySelector(`.success`);
   const errorMessage = document.querySelector(`#error`).content.querySelector(`.error`);
-
-  const housingPrice = {bungalow: 0, flat: 1000, house: 5000, palace: 10000};
 
   const setValidationCapacity = () => {
     if (parseInt(window.constant.adForm.rooms.value, 10) === 100 && parseInt(window.constant.adForm.capacity.value, 10) > 0) {
@@ -55,8 +52,8 @@
   };
 
   const onPriceChange = () => {
-    window.constant.adForm.price.min = housingPrice[window.constant.adForm.type.value];
-    window.constant.adForm.price.placeholder = housingPrice[window.constant.adForm.type.value];
+    window.constant.adForm.price.min = window.constant.housingPrice[window.constant.adForm.type.value];
+    window.constant.adForm.price.placeholder = window.constant.housingPrice[window.constant.adForm.type.value];
   };
 
   const setSuccessMessage = () => {
@@ -164,6 +161,7 @@
     window.constant.adForm.timeout.removeEventListener(`change`, selectTimeout);
   };
 
+  window.constant.mapFilter.addEventListener(`change`, window.filters.onMapChangeFilter);
 
   window.form = {
     setCapacityValue,

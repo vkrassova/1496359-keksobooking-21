@@ -10,10 +10,8 @@
     conditioner: `popup__feature--conditioner`,
   };
 
-  // const map = document.querySelector(`.map`);
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
   const fragment = document.createDocumentFragment();
-  const mapFilterContainer = window.constant.map.querySelector(`.map__filters-container`);
 
   const renderPhotos = (photos, container) => {
     const photoTemplate = container.querySelector(`.popup__photo`);
@@ -70,11 +68,6 @@
     }
   };
 
-  const renderCardOnMap = (adsElement) => {
-    removeCard();
-    window.constant.map.insertBefore(setCard(adsElement), mapFilterContainer);
-  };
-
   const onPopupClickPress = () => {
     removeCard();
     document.removeEventListener(`keydown`, onPopupEscPress);
@@ -88,6 +81,6 @@
 
   window.card = {
     setCard,
-    renderCardOnMap
+    removeCard,
   };
 })();
