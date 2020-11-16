@@ -46,7 +46,7 @@
     cardElement.querySelector(`.popup__title`).textContent = title;
     cardElement.querySelector(`.popup__text--address`).textContent = address;
     cardElement.querySelector(`.popup__text--price`).firstChild.textContent = `${price}\u20BD`;
-    cardElement.querySelector(`.popup__type`).textContent = window.data.typesOfHousing[type];
+    cardElement.querySelector(`.popup__type`).textContent = window.constant.typesOfHousing[type];
     cardElement.querySelector(`.popup__text--capacity`).textContent = `${rooms} ${roomsWord} для ${guests} ${guestsWord}`;
     cardElement.querySelector(`.popup__text--time`).textContent = `Заезд после ${checkin} выезд до ${checkout}`;
     cardElement.querySelector(`.popup__description`).textContent = description;

@@ -26,8 +26,8 @@
       const newCoordsY = window.constant.mapPinMain.offsetTop - shift.y;
       const newCoordsX = window.constant.mapPinMain.offsetLeft - shift.x;
 
-      const minY = window.constant.MAP_TOP - window.constant.mapPinMain.offsetHeight;
-      const maxY = window.constant.MAP_BOTTOM - window.constant.mapPinMain.offsetHeight;
+      const minY = window.constant.MAP_TOP - window.constant.mapPinMain.offsetHeight + window.constant.POINTER_HEIGHT;
+      const maxY = window.constant.MAP_BOTTOM - window.constant.mapPinMain.offsetHeight + window.constant.POINTER_HEIGHT;
       const minX = window.constant.MAP_LEFT - Math.floor(window.constant.mapPinMain.offsetWidth / 2);
       const maxX = window.constant.MAP_RIGHT - Math.floor(window.constant.mapPinMain.offsetWidth / 2);
 
@@ -40,7 +40,7 @@
       }
 
       window.form.setAddress(newCoordsX + Math.floor(window.constant.mapPinMain.offsetWidth / 2),
-          newCoordsY + window.constant.mapPinMain.offsetHeight);
+          newCoordsY + window.constant.mapPinMain.offsetHeight + window.constant.POINTER_HEIGHT);
     };
 
     const onMouseUp = (mouseUpEvt) => {
@@ -58,5 +58,4 @@
   window.dragPin = {
     dragPinMain,
   };
-
 })();

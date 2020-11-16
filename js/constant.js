@@ -16,12 +16,13 @@
 
   const housingPrice = {bungalow: 0, flat: 1000, house: 5000, palace: 10000};
   const housingPriceLimit = {LOW: 10000, HIGH: 50000};
+  const typesOfHousing = {palace: `Дворец`, flat: `Квартира`, house: `Дом`, bungalow: `Бунгало`};
 
   const map = document.querySelector(`.map`);
   const mapPinMain = map.querySelector(`.map__pin--main`);
   const adForm = document.querySelector(`.ad-form`);
   const mapFilter = document.querySelector(`.map__filters`);
-  let pinsData = [];
+  const pinsData = [];
 
   const initialMainPinSettings = {
     X: mapPinMain.style.left,
@@ -52,6 +53,7 @@
     DEBOUNCE,
     housingPrice,
     housingPriceLimit,
+    typesOfHousing,
     adForm,
     map,
     mapPinMain,
