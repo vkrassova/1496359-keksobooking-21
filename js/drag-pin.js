@@ -58,5 +58,4 @@
   window.dragPin = {
     dragPinMain,
   };
-
 })();

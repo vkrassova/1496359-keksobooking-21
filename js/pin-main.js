@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const onEnterPress = (evt) => {
+  const onEnterPressed = (evt) => {
     if (evt.keyCode === window.constant.ENTER_KEY) {
       evt.preventDefault();
       window.page.activatedPage(evt);
@@ -17,10 +17,10 @@
 
   window.constant.mapPinMain.addEventListener(`mousedown`, window.dragPin.dragPinMain);
   window.constant.mapPinMain.addEventListener(`click`, onMousePressed);
-  window.constant.mapPinMain.addEventListener(`keydown`, onEnterPress);
+  window.constant.mapPinMain.addEventListener(`keydown`, onEnterPressed);
 
   window.mainPin = {
     onMousePressed,
-    onEnterPress
+    onEnterPressed
   };
 })();

@@ -144,6 +144,7 @@
   const setAddress = (x, y) => {
     window.constant.adForm.address.value = `${x}, ${y}`;
   };
+  setAddress(window.constant.mainPinLocation.x, window.constant.mainPinLocation.y);
 
   const addFieldsListeners = () => {
     window.constant.adForm.capacity.addEventListener(`change`, onCapacityChange);

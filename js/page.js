@@ -1,8 +1,6 @@
 "use strict";
 
 (() => {
-  const mainPinLocation = window.pin.getPinLocation(window.constant.mainPinLocation, window.constant.mainPinSize);
-
   const setDisabled = (form, isInactive = true) => {
     Array.from(form.children).forEach((item) => {
       item.disabled = isInactive;
@@ -24,6 +22,7 @@
       window.constant.adForm.addEventListener(`submit`, window.form.onSubmitForm);
       document.querySelector(`.ad-form__reset`).addEventListener(`click`, window.form.onResetClick);
       document.querySelector(`.ad-form__reset`).addEventListener(`keydown`, window.form.onResetKeydown);
+      isInactive = window.constant.pinsData.length ? true : isInactive;
     }
 
     window.page.setDisabled(window.constant.mapFilter, isInactive);
@@ -31,7 +30,6 @@
 
   const activatedPage = () => {
     setState(false);
-    window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
     window.form.setCapacityValue();
     window.form.setCapacityDisabled();
     window.loadData.load(window.pin.successHandler, window.errors.renderErrorsNode);
@@ -39,7 +37,7 @@
     window.constant.adForm.capacity.style.outline = ``;
     window.form.addFieldsListeners();
     window.constant.mapPinMain.removeEventListener(`click`, window.mainPin.onMousePressed);
-    window.constant.mapPinMain.removeEventListener(`keydown`, window.mainPin.onEnterPress);
+    window.constant.mapPinMain.removeEventListener(`keydown`, window.mainPin.onEnterPressed);
   };
 
   const deactivatedPage = () => {
@@ -48,10 +46,9 @@
     window.map.deletePins();
     window.constant.mapPinMain.style.left = window.constant.initialMainPinSettings.X;
     window.constant.mapPinMain.style.top = window.constant.initialMainPinSettings.Y;
-    window.util.setInputValue(window.constant.adForm.querySelector(`#address`), `${mainPinLocation.x}, ${mainPinLocation.y}`);
     window.form.removeFieldsListeners();
     window.constant.mapPinMain.addEventListener(`click`, window.mainPin.onMousePressed);
-    window.constant.mapPinMain.addEventListener(`keydown`, window.mainPin.onEnterPress);
+    window.constant.mapPinMain.addEventListener(`keydown`, window.mainPin.onEnterPressed);
   };
 
   window.page = {
