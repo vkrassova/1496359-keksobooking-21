@@ -69,9 +69,11 @@
     };
 
     const onClick = (evt) => {
-      evt.preventDefault();
-      document.querySelector(`.success`).remove();
-      document.removeEventListener(`click`, onClick);
+      if (document.contains(document.querySelector(`.success`))) {
+        evt.preventDefault();
+        document.querySelector(`.success`).remove();
+        document.removeEventListener(`click`, onClick);
+      }
     };
 
     document.addEventListener(`keydown`, onEscKey);
@@ -92,9 +94,11 @@
     };
 
     const onClick = (evt) => {
-      evt.preventDefault();
-      document.querySelector(`.error`).remove();
-      document.removeEventListener(`click`, onClick);
+      if (document.contains(document.querySelector(`.error`))) {
+        evt.preventDefault();
+        document.querySelector(`.error`).remove();
+        document.removeEventListener(`click`, onClick);
+      }
     };
 
     document.addEventListener(`keydown`, onEscKey);
@@ -102,8 +106,7 @@
   };
 
   const successEvent = () => {
-    window.page.setState(true);
-    window.page.deactivatedPage();
+    resetForm();
     setSuccessMessage();
   };
 
@@ -139,6 +142,12 @@
       window.page.setState(true);
       window.page.deactivatedPage();
     }
+  };
+
+  const resetForm = () => {
+    window.constant.adForm.reset();
+    window.page.setState(true);
+    window.page.deactivatedPage();
   };
 
   const setAddress = (x, y) => {
