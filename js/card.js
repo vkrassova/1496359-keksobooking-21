@@ -1,15 +1,6 @@
 "use strict";
 
 (() => {
-  const featuresClasses = {
-    wifi: `popup__feature--wifi`,
-    dishwasher: `popup__feature--dishwasher`,
-    parking: `popup__feature--parking`,
-    washer: `popup__feature--washer`,
-    elevator: `popup__feature--elevator`,
-    conditioner: `popup__feature--conditioner`,
-  };
-
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
   const fragment = document.createDocumentFragment();
 
@@ -32,7 +23,7 @@
 
     features.forEach((item) => {
       const li = document.createElement(`li`);
-      li.classList.add(`popup__feature`, featuresClasses[item]);
+      li.classList.add(`popup__feature`, window.constant.featuresClasses[item]);
       container.appendChild(li);
     });
   };

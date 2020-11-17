@@ -16,7 +16,7 @@
     return housingPriceFilterElement.value === `any` ||
       (housingPriceFilterElement.value === `low` && data.offer.price < window.constant.housingPriceLimit.LOW) ||
       (housingPriceFilterElement.value === `middle` && (data.offer.price >= window.constant.housingPriceLimit.LOW && data.offer.price <= window.constant.housingPriceLimit.HIGH) ||
-        (housingPriceFilterElement.value === `high` && data.offer.price > window.constant.housingPriceLimit.HIGH));
+      (housingPriceFilterElement.value === `high` && data.offer.price > window.constant.housingPriceLimit.HIGH));
   };
 
   const getRoomsFilter = (data) => {

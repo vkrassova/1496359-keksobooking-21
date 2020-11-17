@@ -5,11 +5,11 @@
   const errorMessage = document.querySelector(`#error`).content.querySelector(`.error`);
 
   const setValidationCapacity = () => {
-    if (parseInt(window.constant.adForm.rooms.value, 10) === 100 && parseInt(window.constant.adForm.capacity.value, 10) > 0) {
+    if (parseInt(window.constant.adForm.rooms.value, 10) === window.constant.MAX_ROOMS && parseInt(window.constant.adForm.capacity.value, 10) > 0) {
       window.constant.adForm.capacity.setCustomValidity(`Не для гостей`);
     } else if (parseInt(window.constant.adForm.rooms.value, 10) < parseInt(window.constant.adForm.capacity.value, 10)) {
       window.constant.adForm.capacity.setCustomValidity(`На всех гостей комнат не хватит`);
-    } else if (parseInt(window.constant.adForm.rooms.value, 10) !== 100 && !parseInt(window.constant.adForm.capacity.value, 10)) {
+    } else if (parseInt(window.constant.adForm.rooms.value, 10) !== window.constant.MAX_ROOMS && !parseInt(window.constant.adForm.capacity.value, 10)) {
       window.constant.adForm.capacity.setCustomValidity(`Для гостей`);
     } else {
       window.constant.adForm.capacity.setCustomValidity(``);
@@ -22,7 +22,7 @@
     Array.from(window.constant.adForm.capacity.options).forEach((item) => {
       const optionCapacity = parseInt(item.value, 10);
 
-      if (roomValue === 100) {
+      if (roomValue === window.constant.MAX_ROOMS) {
         item.disabled = !!optionCapacity;
       } else {
         item.disabled = roomValue < optionCapacity || !optionCapacity;
@@ -31,7 +31,7 @@
   };
 
   const setCapacityValue = () => {
-    window.constant.adForm.capacity.value = window.constant.adForm.rooms.value < 100 ? window.constant.adForm.rooms.value : 0;
+    window.constant.adForm.capacity.value = window.constant.adForm.rooms.value < window.constant.MAX_ROOMS ? window.constant.adForm.rooms.value : 0;
   };
 
   const onRoomsChange = () => {
@@ -114,15 +114,6 @@
     setErrorMessage();
   };
 
-  const onAdFormClick = () => {
-    setValidationCapacity();
-    window.util.selectFormValidation(window.constant.adForm);
-
-    if (window.constant.adForm.checkValidity()) {
-      window.loadData.save(successEvent, errorEvent, new FormData(window.constant.adForm));
-    }
-  };
-
   const onSubmitForm = (evt) => {
     evt.preventDefault();
     window.util.selectFormValidation(window.constant.adForm);
@@ -180,7 +171,6 @@
     onResetKeydown,
     setAddress,
     onSubmitForm,
-    onAdFormClick,
     addFieldsListeners,
     removeFieldsListeners
   };
